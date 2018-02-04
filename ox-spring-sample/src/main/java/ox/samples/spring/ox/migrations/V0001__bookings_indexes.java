@@ -14,6 +14,16 @@ public class V0001__bookings_indexes implements Migration {
                 .setCollection("booking")
                 .addAttribute("userId", OrderingType.ASC)
                 .addAttribute("accommodationId", OrderingType.ASC));
+
+        oxEnvironment.execute(OxAction
+                .createIndex("user_id_idx")
+                .setCollection("booking")
+                .addAttribute("userId", OrderingType.ASC));
+
+        oxEnvironment.execute(OxAction
+                .createIndex("accommodation_id_idx")
+                .setCollection("booking")
+                .addAttribute("accommodationId", OrderingType.ASC));
     }
 
     @Override
@@ -21,6 +31,16 @@ public class V0001__bookings_indexes implements Migration {
 
         oxEnvironment.execute(OxAction
                 .removeIndex("user_id_accommodation_id_idx")
+                .setCollection("booking")
+                .ifExists());
+
+        oxEnvironment.execute(OxAction
+                .removeIndex("user_id_idx")
+                .setCollection("booking")
+                .ifExists());
+
+        oxEnvironment.execute(OxAction
+                .removeIndex("accommodation_id_idx")
                 .setCollection("booking")
                 .ifExists());
 
